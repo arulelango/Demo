@@ -1,0 +1,52 @@
+
+
+  <div class="panel panel-primary">
+    
+          <div class="panel-heading">User Input</div>
+          <div class="panel-body">
+
+              <div class="form-group row">
+                  <div class="col-xs-4">
+                      <label for="userName">User Name:</label>
+                      <input type="text" class="form-control" [(ngModel)]="this.app.userName" [ngModelOptions]="{standalone: true}">
+                  </div>
+                  <div class="col-xs-4">
+                      <label for="projectName">Project Name:</label>
+                      <input type="projectName" class="form-control" [(ngModel)]="this.app.projectName" [ngModelOptions]="{standalone: true}">
+                  </div>
+                  <div class="col-xs-4">
+                      <label for="status">Project Status:</label>
+                  </div>
+                  <div class="col-xs-4">
+                      <select name="status" [(ngModel)]="this.app.projectStatus"> 
+                          <option *ngFor="let status of projectStatus" >{{status}}</option> 
+                      </select> 
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <div class="col-xs-4">
+                      <label for="userName">Total no of requirements:</label>
+                      <input type="text" class="form-control" [(ngModel)]="this.app.noOfRequirements" [ngModelOptions]="{standalone: true}">
+                  </div>
+                  <div class="col-xs-4">
+                      <div class="panel panel-warning">
+                          <div class="panel-heading">
+                              <label> Project type</label>
+                              <div>
+                                  <select name="projType" [(ngModel)]="this.app.projType"> 
+                                      <!-- <option *ngFor="let duration of durations" [value]="duration.value">{{duration.title}}</option>  -->
+                                      <!-- <option selected="selected">Open this select menu</option> -->
+                                      <option [value]="1" type="number">Maintanance</option>
+                                      <option [value]="3" type="number">New Development</option>
+                                      <option [value]="3" type="number">Innovation</option>
+                                      <option [value]="2" type="number">Migration</option>
+                                  </select> 
+                               </div> 
+                          </div>
+                    </div>
+                  </div>
+              </div>
+
+
+        </div>
+  </div>

@@ -1,0 +1,416 @@
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    </head>
+  <body>
+  
+    <!--Resulets panel-->
+  <span *ngIf="bugsCount > 0">
+      <div class="panel panel-success">
+          <div class="panel-heading"><strong>Results</strong></div>
+          <div class="panel-body">
+              <div class="col-xs-4">
+                  <h4>Project Status : <strong>{{this.app.projectStatus}}</strong></h4>
+              </div>
+              <div class="col-xs-4">
+                  <h4>Project Name : <strong>{{this.app.projectName}}</strong></h4>
+              </div>
+              <div class="col-xs-4">
+                  <h4 color="red">Potential Bugs : <strong>{{bugsCount}}</strong></h4>
+              </div>
+          </div>
+      </div>
+  </span>
+<!--Resulets panel-->
+
+
+  <div class="container">
+    <form action="/action_page.php">
+    <app-user></app-user>
+
+        <!-- Project Type --> 
+  <!-- <div class="panel panel-warning">
+      <div class="panel-heading">
+          <label> Project type</label>
+          <div>
+              <select name="projType" [(ngModel)]="projType"> 
+                  <option [value]=1 type="number">Maintanance</option>
+                  <option [value]=3 type="number">New Development</option>
+                  <option [value]="3" type="number">Innovation</option>
+                  <option [value]="2" type="number">Migration</option>
+              </select> 
+           </div> 
+      </div>
+</div> -->
+
+
+    <!-- Requirements / Behavioural pattern --> 
+  <div class="panel panel-primary">
+        <div class="panel-heading">Requirements / Behavioural pattern</div>
+          <div class="panel-body">
+              <div class="form-group row">
+                  <div class="col-xs-3">
+                      <label >Requirements Complexity</label>
+                      <div>
+                          <select name="duration" (change)="resetRequirements()" ng-Value="0" [(ngModel)]="reqComplex"> 
+                              <option [value]="0" type="number"> N/A</option>
+                              <option [value]="1">Low</option>
+                              <option [value]="2">Medium</option>
+                              <option [value]="3">High</option>
+                          </select> 
+                       </div> 
+                  </div>
+
+                  <span *ngIf="reqComplex ==='1' || reqComplex ==='2' || reqComplex ==='3'">
+
+                    <div class="col-xs-3">
+                        <label> Access to Users, SME</label>
+                        <div>
+                            <select name="users" ng-Value="0" [(ngModel)]="users"> 
+                                <option [value]="0"> N/A</option>
+                                <option [value]="1">Yes</option>
+                                <option [value]="2">Partially</option>
+                                <option [value]="3">No</option>
+                            </select> 
+                         </div> 
+                    </div>
+                    
+                    
+                    <div class="col-xs-3">
+                        <label> Availability of user scenarios</label>
+                        <div>
+                           <select name="scenarios" ng-Value="0" [(ngModel)]="scenarios"> 
+                                  <option [value]="0"> N/A</option>
+                                  <option [value]="1">Yes</option>
+                                  <option [value]="2">Partially</option>
+                                  <option [value]="3">No</option>
+                           </select> 
+                        </div> 
+                    </div>
+                  </span>
+              </div>
+        </div>
+  </div>
+
+  <div class="panel panel-primary">
+      <div class="panel-heading">Design / Architecture pattern</div>
+      <!-- <div class="alert alert-info"><strong>Design / Architecture patterns</strong> </div> -->
+      <div class="panel-body">
+
+          <div class="form-group row">
+              <div class="col-xs-3">
+                  <label >Design Complexity</label>
+                  <div>
+                      <select name="designComplex" (change)="resetDesigns()" [(ngModel)]="designComplex"> 
+                          <option [value]="0"> N/A</option>
+                          <option [value]="1">Low</option>
+                          <option [value]="2">Medium</option>
+                          <option [value]="3">High</option>
+                      </select> 
+                   </div> 
+              </div>
+
+              <span *ngIf="designComplex ==='1' || designComplex ==='2' || designComplex ==='3'">
+                  <div class="col-xs-3">
+                      <label> Availabilit of HLD,LLD</label>
+                      <div>
+                          <select name="lld" [(ngModel)]="lld"> 
+                              <option [value]="0">N/A</option>
+                              <option [value]="1">Yes</option>
+                              <option [value]="2">Partially</option>
+                              <option [value]="3">No</option>
+                          </select> 
+                       </div> 
+                  </div>
+                  <div class="col-xs-3">
+                      <label> Proven design</label>
+                      <div>
+                         <select name="design" [(ngModel)]="design"> 
+                             <option [value]="0">N/A</option>
+                             <option [value]="1">Yes</option>
+                             <option [value]="2">Partially</option>
+                             <option [value]="3">No</option>
+                         </select> 
+                      </div> 
+                  </div>
+              </span>
+
+          </div>
+
+    </div>
+</div>
+
+<!-- Coding Pattetns -->
+<div class="panel panel-primary">
+    <div class="panel-heading">Coding Patterns</div>
+    <!-- <div class="alert alert-info"><strong>Design / Architecture patterns</strong> </div> -->
+    <div class="panel-body">
+        <div class="form-group row">
+
+            <div class="col-xs-3">
+                <label> Usage of standard practices, frameworks</label>
+                <div>
+                    <select name="codingpractice" (change)="resetCodingPatterns()" [(ngModel)]="codingPractice"> 
+                        <option [value]="0">N/A</option>
+                        <option [value]="1">Yes</option>
+                        <option [value]="2">Partially</option>
+                        <option [value]="3">No</option>
+                    </select> 
+                 </div> 
+            </div>
+            <span *ngIf="codingPractice ==='1' || codingPractice ==='2' || codingPractice ==='3'">
+
+                <div class="col-xs-3">
+                    <label> Complex logic</label>
+                    <div>
+                        <select name="complexLogic" [(ngModel)]="complexLogic"> 
+                            <option [value]="0"> N/A</option>
+                            <option [value]="1">Low</option>
+                            <option [value]="2">Medium</option>
+                            <option [value]="3">High</option>
+                        </select> 
+                     </div> 
+                </div>
+                <div class="col-xs-3">
+                    <label> Level of knowledge within team</label>
+                    <div>
+                       <select name="knowledge" [(ngModel)]="knowledge"> 
+                           <option [value]="0"> N/A</option>
+                           <option [value]="1">Very good</option>
+                           <option [value]="2">Good</option>
+                           <option [value]="3">Very low</option>
+                       </select> 
+                    </div> 
+                </div>
+
+                <div class="col-xs-3">
+                    <label>Time pressure for design and dev</label>
+                    <div>
+                       <select name="timePressure" [(ngModel)]="timePressure"> 
+                           <option [value]="0"> N/A</option>
+                           <option [value]="1">Low</option>
+                           <option [value]="2">Medium</option>
+                           <option [value]="3">High</option>
+                       </select> 
+                    </div> 
+                </div>
+              </span>
+          <!-- First row ends-->
+          </div>
+
+          <!--second row-->
+          <span *ngIf="codingPractice ==='1' || codingPractice ==='2' || codingPractice ==='3'">
+          <div class="form-group row">
+              <div class="col-xs-3">
+                  <label>Code status - Dormant code, abandoned code</label>
+                  <div>
+                     <select name="codeStatus" [(ngModel)]="codeStatus"> 
+                         <option [value]="0"> N/A</option>
+                         <option [value]="1">Less than 25%</option>
+                         <option [value]="2">25% - 50%</option>
+                         <option [value]="3">More than 50%</option>
+                     </select> 
+                  </div> 
+              </div>
+
+              <div class="col-xs-3">
+                  <label> Level of quality tool usage</label>
+                  <div>
+                     <select name="toolUsage" [(ngModel)]="toolUsage"> 
+                         <option [value]="0"> N/A</option>
+                         <option [value]="1">Yes</option>
+                         <option [value]="2">Partially</option>
+                         <option [value]="3">No</option>
+                     </select> 
+                  </div> 
+              </div>
+              <div class="col-xs-3">
+                  <label> No of developers</label>
+                  <div>
+                     <select name="noOfDevs" [(ngModel)]="noOfDevs"> 
+                         <option [value]="1">Less than 3</option>
+                         <option [value]="2">4-6</option>
+                         <option [value]="3">More than 6</option>
+                     </select> 
+                  </div> 
+              </div>
+              <div class="col-xs-3">
+                  <label>Code merge process</label>
+                  <div>
+                     <select name="codeMergeProcess" [(ngModel)]="codeMergeProcess"> 
+                         <option [value]="0">N/A</option>
+                         <option [value]="1">Mature process</option>
+                         <option [value]="2">New process</option>
+                         <option [value]="3">Nil</option>
+                     </select> 
+                  </div> 
+              </div>
+            </div>
+          <!-- second row ends-->
+        </span>
+  </div>
+</div>
+
+<!-- Deployability pattern-->
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Deployability pattern</div>
+    <div class="panel-body">
+
+      <div class="form-group row">
+        <div class="col-xs-3">
+            <label> Infrastructure Requirements</label>
+            <div>
+                <select name="infraRequirements" (change)="resetDeployPatterns()" [(ngModel)]="infraRequirements"> 
+                    <option [value]="0">N/A</option>
+                    <option [value]="1">Low</option>
+                    <option [value]="2">Partially</option>
+                    <option [value]="3">High</option>
+                </select> 
+             </div> 
+        </div>
+        
+        <span *ngIf="infraRequirements ==='1' || infraRequirements ==='2' || infraRequirements ==='3'">
+            <div class="col-xs-3">
+                <label>No of tools,config, setup</label>
+                <div>
+                    <select name="infraTools" [(ngModel)]="infraTools"> 
+                        <option [value]="0"> N/A</option>
+                        <option [value]="1">Low</option>
+                        <option [value]="2">Medium</option>
+                        <option [value]="3">High</option>
+                    </select> 
+                 </div> 
+            </div>
+            <div class="col-xs-3">
+                <label>Servers</label>
+                <div>
+                   <select name="servers" [(ngModel)]="servers"> 
+                       <option [value]="1">Local data centres</option>
+                       <option [value]="2">Hybrid</option>
+                       <option [value]="3">Cloud</option>
+                   </select> 
+                </div> 
+            </div>
+        </span>
+      </div>
+  </div>
+</div>
+
+
+<!-- External dependencies/Abstract pattern -->
+
+<div class="panel panel-primary">
+    <div class="panel-heading">External dependencies/Abstract pattern</div>
+    <div class="panel-body">
+      <div class="form-group row">
+        <div class="col-xs-3">
+            <label>External dependencies complexity</label>
+            <div>
+                <select name="externalDepComplexity" (change)="resetExternalDep()" [(ngModel)]="externalDepComplexity"> 
+                    <option [value]="0"> N/A</option>
+                    <option [value]="1">Low</option>
+                    <option [value]="2">Medium</option>
+                    <option [value]="3">High</option>
+                </select> 
+             </div> 
+        </div>
+
+        <span *ngIf="externalDepComplexity ==='1' || externalDepComplexity ==='2' || externalDepComplexity ==='3'">
+        <div class="col-xs-3">
+            <label>No of upstream,downstream systems</label>
+            <div>
+                <select name="lld" [(ngModel)]="upDownSystems"> 
+                    <option [value]="0">N/A</option>
+                    <option [value]="1">Less than 3</option>
+                    <option [value]="2">3-5</option>
+                    <option [value]="3">More than 5</option>
+                </select> 
+             </div> 
+        </div>
+      </span>
+      </div>
+  </div>
+</div>
+
+<!-- Maturity patterns -->
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Maturity patterns</div>
+    <div class="panel-body">
+      <div class="form-group row">
+        <div class="col-xs-3">
+            <label>Availability of project plans,road maps</label>
+            <div>
+                <select name="externalDepComplexity" (change)="resetMaturityPatterns()" [(ngModel)]="patternsAvailability"> 
+                    <option [value]="0">N/A</option>
+                    <option [value]="1">Partially</option>
+                    <option [value]="2">Yes</option>
+                </select> 
+             </div> 
+        </div>
+        <span *ngIf="patternsAvailability ==='1' || patternsAvailability ==='2'">
+          <div class="col-xs-3">
+              <label>Mature dev practices - code merge, development practices</label>
+              <div>
+                  <select name="matureDevPractice" [(ngModel)]="matureDevPractice"> 
+                      <option [value]="0">N/A</option>
+                      <option [value]="1">Mature process</option>
+                      <option [value]="2">New process</option>
+                      <option [value]="3">NIL</option>
+                  </select> 
+               </div> 
+          </div>
+          <div class="col-xs-3">
+              <label>Mature test practices - code merge, development practices</label>
+              <div>
+                  <select name="matureTestPractice" ng-change="myFunc()" [(ngModel)]="matureTestPractice"> 
+                      <option [value]="0">N/A</option>
+                      <option [value]="1">Mature process</option>
+                      <option [value]="2">New process</option>
+                      <option [value]="3">NIL</option>
+                  </select> 
+               </div> 
+          </div>
+        </span>
+      </div>
+
+  </div>
+</div>
+
+
+<!--Resulets panel-->
+  <div class="panel">
+      <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+      <button type="button" class="btn btn-success btn-block" (click)="submit()">Submit</button>
+  </div>
+
+  <!-- <span *ngIf="bugsCount > 0">
+      <div class="panel panel-danger">
+          <div class="panel-heading">RESULTS</div>
+          <div class="panel-body">
+              <div class="col-xs-4">
+                  Project Status : <strong>{{this.app.projectStatus}}</strong>
+              </div>
+              <div class="col-xs-4">
+                  Project Name : <strong>{{this.app.projectName}}</strong>
+              </div>
+              <div class="col-xs-4">
+                  Potential Bugs : <strong>{{bugsCount}}</strong>
+              </div>
+          </div>
+      </div>
+  </span> -->
+<!--Resulets panel-->
+  </form>
+  </div>
+  
+
+
+  </body>
+  </html>
+  
